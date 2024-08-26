@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react'
-import { NewTodoForm } from './NewTodoForm'
-import './styles.css'
-import { TodoList } from './TodoList'
+import { useEffect, useState } from "react"
+import { NewTodoForm } from "./NewTodoForm"
+import "./styles.css"
+import { TodoList } from "./TodoList"
 
 export default function App() {
-  const [todos, setTodos] = useState(()=>{
-    const localValue = localStorage.getItem('ITEMS')
+  const [todos, setTodos] = useState(() => {
+    const localValue = localStorage.getItem("ITEMS")
     if (localValue == null) return []
 
     return JSON.parse(localValue)
   })
 
-  useEffect (()=>{
-    localStorage.setItem('ITEMS', JSON.stringify(todos))
+  useEffect(() => {
+    localStorage.setItem("ITEMS", JSON.stringify(todos))
   }, [todos])
 
-  function addTodo(title){
+  function addTodo(title) {
     setTodos(currentTodos => {
       return [
         ...currentTodos,
@@ -30,6 +30,7 @@ export default function App() {
         if (todo.id === id) {
           return { ...todo, completed }
         }
+
         return todo
       })
     })
@@ -44,7 +45,7 @@ export default function App() {
   return (
     <>
       <NewTodoForm onSubmit={addTodo} />
-      <h1 className='header'>Todo List</h1>
+      <h1 className="header">Todo List</h1>
       <TodoList todos={todos} toggleTodo={toggleTodo} deleteTodo={deleteTodo} />
     </>
   )
